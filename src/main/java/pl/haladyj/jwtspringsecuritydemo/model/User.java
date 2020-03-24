@@ -3,12 +3,15 @@ package pl.haladyj.jwtspringsecuritydemo.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -31,7 +34,7 @@ public class User {
 
     @NotBlank
     @Column(nullable = false, name = "username")
-    @Size(max=15)
+    @Size(max = 15)
     private String userName;
 
     @NotBlank
@@ -43,6 +46,13 @@ public class User {
 
     @NotBlank
     @Column(nullable = false)
-    @Size(max=100)
+    @Size(max = 100)
     private String password;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 }
