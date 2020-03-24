@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.NaturalId;
+import pl.haladyj.jwtspringsecuritydemo.model.audit.DateAudit;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -21,7 +22,7 @@ import java.util.Set;
         @UniqueConstraint(columnNames = {"username"}),
         @UniqueConstraint(columnNames = {"email"})
 })
-public class User {
+public class User extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
