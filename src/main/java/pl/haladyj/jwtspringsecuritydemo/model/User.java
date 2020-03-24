@@ -56,4 +56,14 @@ public class User extends DateAudit {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
+    public User(@NotBlank @Size(max = 40) String name,
+                @NotBlank @Size(max = 15) String userName,
+                @NotBlank @Size(max = 40) @Email String email,
+                @NotBlank @Size(max = 100) String password) {
+        this.name = name;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
 }
